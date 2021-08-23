@@ -1,6 +1,8 @@
 package com.example.schoolmanagement.service.concrete;
 
 import com.example.schoolmanagement.entity.Instructor;
+import com.example.schoolmanagement.entity.PermanentInstructor;
+import com.example.schoolmanagement.entity.VisitingResearcher;
 import com.example.schoolmanagement.repository.InstructorRepository;
 import com.example.schoolmanagement.service.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +64,24 @@ public class InstructorServiceImpl implements InstructorService {
     @Transactional
     public void update(Instructor instructor) {
         instructorRepository.save(instructor);
+    }
+
+    public List<PermanentInstructor> getTopEarningPermanentInstructors(){
+        return instructorRepository.highestPayedPermanentInstructors();
+    }
+
+    @Override
+    public List<VisitingResearcher> getTopEarningVisitingResearchers() {
+        return instructorRepository.highestPayedVisitingResearchers();
+    }
+
+    @Override
+    public List<PermanentInstructor> getLowestPayedPermanentInstructors() {
+        return instructorRepository.lowestPayedPermanentInstructors();
+    }
+
+    @Override
+    public List<VisitingResearcher> getLowestPayedVisitingResearchers() {
+        return instructorRepository.lowestPayedVisitingResearchers();
     }
 }
