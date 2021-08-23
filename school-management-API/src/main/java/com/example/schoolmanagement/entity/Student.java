@@ -1,5 +1,6 @@
 package com.example.schoolmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,5 +25,6 @@ public class Student {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @ManyToMany(mappedBy = "students")
+    @JsonIgnore
     private Set<Course> courses;
 }

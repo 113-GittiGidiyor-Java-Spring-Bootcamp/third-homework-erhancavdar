@@ -1,5 +1,6 @@
 package com.example.schoolmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class Course {
     @NotFound(action = NotFoundAction.IGNORE) //pfffs
     private Instructor instructor;
     @ManyToMany
+    @JsonIgnore
     private Set<Student> students;
 
 }
