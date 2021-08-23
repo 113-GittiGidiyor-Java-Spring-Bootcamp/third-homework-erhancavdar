@@ -38,4 +38,14 @@ public class CourseController {
     public void update(@RequestBody Course course){
         courseService.update(course);
     }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<Course> findByName(@PathVariable String name){
+        return new ResponseEntity<>(courseService.findByName(name),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{name}")
+    public void deleteByName(@PathVariable String name){
+        courseService.deleteByName(name);
+    }
 }

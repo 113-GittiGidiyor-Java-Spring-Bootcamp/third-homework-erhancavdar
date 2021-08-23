@@ -37,9 +37,24 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Course findByName(String name) {
+        return courseRepository.findCourseByName(name).orElseThrow(()-> new IllegalArgumentException("Course not found."));
+    }
+
+    @Override
+    public void deleteByName(String name) {
+        courseRepository.deleteByName(name);
+    }
+
+    @Override
     @Transactional
     public void delete(long id) {
         courseRepository.deleteById(id);
+    }
+
+    @Override
+    public void delete(Course course) {
+        courseRepository.delete(course);
     }
 
     @Override

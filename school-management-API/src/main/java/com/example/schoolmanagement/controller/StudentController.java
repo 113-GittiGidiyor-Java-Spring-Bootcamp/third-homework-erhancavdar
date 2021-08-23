@@ -39,4 +39,14 @@ public class StudentController {
     public void update(@RequestBody Student student){
         studentService.update(student);
     }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<Student> findByName(@PathVariable String name){
+        return new ResponseEntity<>(studentService.findByName(name),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{name}")
+    public void deleteByName(@PathVariable String name){
+        studentService.deleteByName(name);
+    }
 }

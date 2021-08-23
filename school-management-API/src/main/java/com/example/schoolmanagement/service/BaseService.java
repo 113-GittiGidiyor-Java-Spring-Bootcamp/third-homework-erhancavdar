@@ -9,7 +9,13 @@ public interface BaseService <T>{
 
     T save(T t);
 
+    T findByName(String name);
+
+    void deleteByName(String name);
+
     void delete(long id);
+
+    void delete(T t);
 
     void update(T t);
 }

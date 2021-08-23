@@ -37,9 +37,24 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Student findByName(String name) {
+        return studentRepository.findStudentByName(name).orElseThrow(()-> new IllegalArgumentException("User not found."));
+    }
+
+    @Override
+    public void deleteByName(String name) {
+        studentRepository.deleteByName(name);
+    }
+
+    @Override
     @Transactional
     public void delete(long id) {
         studentRepository.deleteById(id);
+    }
+
+    @Override
+    public void delete(Student student) {
+        studentRepository.delete(student);
     }
 
     @Override

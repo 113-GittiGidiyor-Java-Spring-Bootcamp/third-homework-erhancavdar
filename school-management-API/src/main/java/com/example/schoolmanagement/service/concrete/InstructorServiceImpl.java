@@ -38,9 +38,24 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
+    public Instructor findByName(String name) {
+        return instructorRepository.findInstructorByName(name).orElseThrow(()->new IllegalArgumentException("User not found."));
+    }
+
+    @Override
+    public void deleteByName(String name) {
+        instructorRepository.deleteByName(name);
+    }
+
+    @Override
     @Transactional
     public void delete(long id) {
         instructorRepository.deleteById(id);
+    }
+
+    @Override
+    public void delete(Instructor instructor) {
+        instructorRepository.delete(instructor);
     }
 
     @Override

@@ -39,4 +39,13 @@ public class InstructorController {
     public void update(@RequestBody Instructor instructor){
         instructorService.update(instructor);
     }
+    @GetMapping("/{name}")
+    public ResponseEntity<Instructor> findByName(@PathVariable String name){
+        return new ResponseEntity<>(instructorService.findByName(name),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{name}")
+    public void deleteByName(@PathVariable String name){
+        instructorService.deleteByName(name);
+    }
 }
