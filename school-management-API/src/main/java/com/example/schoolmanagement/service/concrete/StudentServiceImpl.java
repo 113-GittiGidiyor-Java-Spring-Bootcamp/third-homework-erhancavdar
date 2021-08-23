@@ -1,5 +1,6 @@
 package com.example.schoolmanagement.service.concrete;
 
+import com.example.schoolmanagement.entity.GenderStatistics;
 import com.example.schoolmanagement.entity.Student;
 import com.example.schoolmanagement.repository.StudentRepository;
 import com.example.schoolmanagement.service.StudentService;
@@ -9,10 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 public class StudentServiceImpl implements StudentService {
     StudentRepository studentRepository;
+
     @Autowired
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -27,7 +30,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student findById(long id) {
-        return studentRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("User not found."));
+        return studentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found."));
     }
 
     @Override
@@ -38,7 +41,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student findByName(String name) {
-        return studentRepository.findStudentByName(name).orElseThrow(()-> new IllegalArgumentException("User not found."));
+        return studentRepository.findStudentByName(name).orElseThrow(() -> new IllegalArgumentException("User not found."));
     }
 
     @Override
@@ -61,5 +64,10 @@ public class StudentServiceImpl implements StudentService {
     @Transactional
     public void update(Student student) {
         studentRepository.save(student);
+    }
+
+    @Override
+    public List<GenderStatistics> getGenderStatistics() {
+        return studentRepository.countByGender();
     }
 }

@@ -61,20 +61,20 @@ public class InitializerRunner implements CommandLineRunner {
         Student student = Student.builder()
                 .name("Ahmet")
                 .address("Sarıyer")
-                .birthday(LocalDate.of(2000,12,26))
+                .birthday(LocalDate.of(2000, 12, 26))
                 .gender(Gender.MALE)
                 .build();
         Student student1 = Student.builder()
                 .name("Osman")
                 .address("Sarıyer")
-                .birthday(LocalDate.of(2000,12,26))
+                .birthday(LocalDate.of(2000, 12, 26))
                 .gender(Gender.MALE)
                 .build();
 
         Student student2 = Student.builder()
                 .name("Ayşe")
                 .address("Sarıyer")
-                .birthday(LocalDate.of(2000,12,26))
+                .birthday(LocalDate.of(2000, 12, 26))
                 .gender(Gender.FEMALE)
                 .build();
         // Save

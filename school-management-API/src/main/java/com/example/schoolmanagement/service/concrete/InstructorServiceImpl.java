@@ -11,10 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 public class InstructorServiceImpl implements InstructorService {
     InstructorRepository instructorRepository;
+
     @Autowired
     public InstructorServiceImpl(InstructorRepository instructorRepository) {
         this.instructorRepository = instructorRepository;
@@ -30,7 +32,7 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     public Instructor findById(long id) {
 
-        return instructorRepository.findById(id).orElseThrow(()->new IllegalArgumentException("User not found."));
+        return instructorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found."));
     }
 
     @Override
@@ -41,7 +43,7 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public Instructor findByName(String name) {
-        return instructorRepository.findInstructorByName(name).orElseThrow(()->new IllegalArgumentException("User not found."));
+        return instructorRepository.findInstructorByName(name).orElseThrow(() -> new IllegalArgumentException("User not found."));
     }
 
     @Override
@@ -66,7 +68,7 @@ public class InstructorServiceImpl implements InstructorService {
         instructorRepository.save(instructor);
     }
 
-    public List<PermanentInstructor> getTopEarningPermanentInstructors(){
+    public List<PermanentInstructor> getTopEarningPermanentInstructors() {
         return instructorRepository.highestPayedPermanentInstructors();
     }
 

@@ -9,10 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 public class CourseServiceImpl implements CourseService {
     CourseRepository courseRepository;
+
     @Autowired
     public CourseServiceImpl(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
@@ -27,7 +29,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course findById(long id) {
-        return courseRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("Course not found."));
+        return courseRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Course not found."));
     }
 
     @Override
@@ -38,7 +40,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course findByName(String name) {
-        return courseRepository.findCourseByName(name).orElseThrow(()-> new IllegalArgumentException("Course not found."));
+        return courseRepository.findCourseByName(name).orElseThrow(() -> new IllegalArgumentException("Course not found."));
     }
 
     @Override

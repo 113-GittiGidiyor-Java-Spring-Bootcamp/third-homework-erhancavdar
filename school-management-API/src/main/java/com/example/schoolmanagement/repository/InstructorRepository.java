@@ -12,16 +12,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface InstructorRepository extends CrudRepository<Instructor,Long> {
+public interface InstructorRepository extends CrudRepository<Instructor, Long> {
     Optional<Instructor> findInstructorByName(String name);
+
     void deleteByName(String name);
+
     // Bad
+    // TODO Convert to JPQL
     @Query(nativeQuery = true, value = StringConstants.SORT_BY_SALARY_DESC_VR)
     List<VisitingResearcher> highestPayedVisitingResearchers();
+
     @Query(nativeQuery = true, value = StringConstants.SORT_BY_SALARY_ASC_VR)
     List<VisitingResearcher> lowestPayedVisitingResearchers();
+
     @Query(nativeQuery = true, value = StringConstants.SORT_BY_SALARY_DESC_PI)
     List<PermanentInstructor> highestPayedPermanentInstructors();
+
     @Query(nativeQuery = true, value = StringConstants.SORT_BY_SALARY_ASC_PI)
     List<PermanentInstructor> lowestPayedPermanentInstructors();
 

@@ -13,39 +13,44 @@ import java.util.List;
 @RequestMapping("/api/courses")
 public class CourseController {
     CourseService courseService;
+
     @Autowired
     public CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
+
     @GetMapping
-    public ResponseEntity<List<Course>> findAll(){
+    public ResponseEntity<List<Course>> findAll() {
         return new ResponseEntity<>(courseService.findAll(), HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Course> findById(@PathVariable long id){
+    public ResponseEntity<Course> findById(@PathVariable long id) {
         return new ResponseEntity<>(courseService.findById(id), HttpStatus.OK);
     }
+
     @PostMapping
-    public ResponseEntity<Course> save(@RequestBody Course course){
-     return new ResponseEntity<>(courseService.save(course),HttpStatus.OK);
+    public ResponseEntity<Course> save(@RequestBody Course course) {
+        return new ResponseEntity<>(courseService.save(course), HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id){
+    public void delete(@PathVariable long id) {
         courseService.delete(id);
     }
 
     @PutMapping
-    public void update(@RequestBody Course course){
+    public void update(@RequestBody Course course) {
         courseService.update(course);
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<Course> findByName(@PathVariable String name){
-        return new ResponseEntity<>(courseService.findByName(name),HttpStatus.OK);
+    public ResponseEntity<Course> findByName(@PathVariable String name) {
+        return new ResponseEntity<>(courseService.findByName(name), HttpStatus.OK);
     }
 
     @DeleteMapping("/{name}")
-    public void deleteByName(@PathVariable String name){
+    public void deleteByName(@PathVariable String name) {
         courseService.deleteByName(name);
     }
 }

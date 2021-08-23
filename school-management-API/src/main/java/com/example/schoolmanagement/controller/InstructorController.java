@@ -1,8 +1,6 @@
 package com.example.schoolmanagement.controller;
 
-import com.example.schoolmanagement.entity.Course;
 import com.example.schoolmanagement.entity.Instructor;
-import com.example.schoolmanagement.entity.VisitingResearcher;
 import com.example.schoolmanagement.service.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,48 +15,55 @@ import java.util.stream.Stream;
 @RequestMapping("/api/instructors")
 public class InstructorController {
     InstructorService instructorService;
+
     @Autowired
     public InstructorController(InstructorService instructorService) {
         this.instructorService = instructorService;
     }
+
     @GetMapping
-    public ResponseEntity<List<Instructor>> findAll(){
+    public ResponseEntity<List<Instructor>> findAll() {
         return new ResponseEntity<>(instructorService.findAll(), HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Instructor> findById(@PathVariable long id){
+    public ResponseEntity<Instructor> findById(@PathVariable long id) {
         return new ResponseEntity<>(instructorService.findById(id), HttpStatus.OK);
     }
+
     @PostMapping
-    public ResponseEntity<Instructor> save(@RequestBody Instructor instructor){
-        return new ResponseEntity<>(instructorService.save(instructor),HttpStatus.OK);
+    public ResponseEntity<Instructor> save(@RequestBody Instructor instructor) {
+        return new ResponseEntity<>(instructorService.save(instructor), HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id){
+    public void delete(@PathVariable long id) {
         instructorService.delete(id);
     }
 
     @PutMapping
-    public void update(@RequestBody Instructor instructor){
+    public void update(@RequestBody Instructor instructor) {
         instructorService.update(instructor);
     }
+
     @GetMapping("/{name}")
-    public ResponseEntity<Instructor> findByName(@PathVariable String name){
-        return new ResponseEntity<>(instructorService.findByName(name),HttpStatus.OK);
+    public ResponseEntity<Instructor> findByName(@PathVariable String name) {
+        return new ResponseEntity<>(instructorService.findByName(name), HttpStatus.OK);
     }
 
     @DeleteMapping("/{name}")
-    public void deleteByName(@PathVariable String name){
+    public void deleteByName(@PathVariable String name) {
         instructorService.deleteByName(name);
     }
 
     @GetMapping("/highest-paid")
-    public List<?> getTopEarners(){
+    public List<?> getTopEarners() {
         return Stream.concat(instructorService.getTopEarningVisitingResearchers().stream(), instructorService.getTopEarningPermanentInstructors().stream())
                 .collect(Collectors.toList());
     }
+
     @GetMapping("/lowest-paid")
-    public List<?> getLowestPaid(){
+    public List<?> getLowestPaid() {
         return Stream.concat(instructorService.getLowestPayedPermanentInstructors().stream(), instructorService.getLowestPayedVisitingResearchers().stream())
                 .collect(Collectors.toList());
     }

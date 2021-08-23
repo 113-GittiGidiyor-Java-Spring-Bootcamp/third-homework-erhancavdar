@@ -7,10 +7,13 @@ import com.example.schoolmanagement.entity.VisitingResearcher;
 import java.util.List;
 
 public interface InstructorService extends BaseService<Instructor> {
-    public List<PermanentInstructor> getTopEarningPermanentInstructors();
-    public List<VisitingResearcher> getTopEarningVisitingResearchers();
-    public List<PermanentInstructor> getLowestPayedPermanentInstructors();
-    public List<VisitingResearcher> getLowestPayedVisitingResearchers();
+    List<PermanentInstructor> getTopEarningPermanentInstructors();
+
+    List<VisitingResearcher> getTopEarningVisitingResearchers();
+
+    List<PermanentInstructor> getLowestPayedPermanentInstructors();
+
+    List<VisitingResearcher> getLowestPayedVisitingResearchers();
 
 
 }
