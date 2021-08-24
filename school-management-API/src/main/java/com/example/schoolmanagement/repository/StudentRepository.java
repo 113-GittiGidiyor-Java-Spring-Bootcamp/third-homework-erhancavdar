@@ -15,6 +15,7 @@ public interface StudentRepository extends CrudRepository<Student, Long> {
     Optional<Student> findStudentByName(String name);
 
     void deleteByName(String name);
+
     // TODO Convert to JPQL
     @Query(nativeQuery = true, value = StringConstants.GET_GENDER_STATISTICS)
     List<GenderStatistics> countByGender();

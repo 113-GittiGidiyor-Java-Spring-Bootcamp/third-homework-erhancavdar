@@ -16,7 +16,7 @@ public class SchoolManagementApplication {
     }
 
     @Bean
-    public RestTemplate buildRestTemplate(RestTemplateBuilder restTemplateBuilder){
+    public RestTemplate buildRestTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder.build();
     }
 

@@ -1,6 +1,7 @@
 package com.example.schoolmanagement.controller;
 
 import com.example.schoolmanagement.entity.Instructor;
+import com.example.schoolmanagement.entity.InstructorsByType;
 import com.example.schoolmanagement.service.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api/instructors")
@@ -57,14 +56,14 @@ public class InstructorController {
     }
 
     @GetMapping("/highest-paid")
-    public List<?> getTopEarners() {
-        return Stream.concat(instructorService.getTopEarningVisitingResearchers().stream(), instructorService.getTopEarningPermanentInstructors().stream())
-                .collect(Collectors.toList());
+    public ResponseEntity<InstructorsByType> getTopEarners() {
+        InstructorsByType instructorsByType = new InstructorsByType(instructorService.getTopEarningVisitingResearchers(), instructorService.getTopEarningPermanentInstructors());
+        return ResponseEntity.ok(instructorsByType);
     }
 
     @GetMapping("/lowest-paid")
-    public List<?> getLowestPaid() {
-        return Stream.concat(instructorService.getLowestPayedPermanentInstructors().stream(), instructorService.getLowestPayedVisitingResearchers().stream())
-                .collect(Collectors.toList());
+    public ResponseEntity<InstructorsByType> getLowestPaid() {
+        InstructorsByType instructorsByType = new InstructorsByType(instructorService.getLowestPayedVisitingResearchers(), instructorService.getLowestPayedPermanentInstructors());
+        return ResponseEntity.ok(instructorsByType);
     }
 }
