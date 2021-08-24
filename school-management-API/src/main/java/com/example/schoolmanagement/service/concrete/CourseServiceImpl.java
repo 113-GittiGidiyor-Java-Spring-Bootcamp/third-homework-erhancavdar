@@ -1,6 +1,8 @@
 package com.example.schoolmanagement.service.concrete;
 
 import com.example.schoolmanagement.entity.Course;
+import com.example.schoolmanagement.exceptions.EntityAlreadyExists;
+import com.example.schoolmanagement.exceptions.EntityNotFoundException;
 import com.example.schoolmanagement.repository.CourseRepository;
 import com.example.schoolmanagement.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,39 +31,55 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course findById(long id) {
-        return courseRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Course not found."));
+        return courseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Course not found."));
     }
 
     @Override
     @Transactional
     public Course save(Course course) {
+        if (courseRepository.existsById(course.getId())) {
+            throw new EntityAlreadyExists("Course already exists.");
+        }
         return courseRepository.save(course);
     }
 
     @Override
     public Course findByName(String name) {
-        return courseRepository.findCourseByName(name).orElseThrow(() -> new IllegalArgumentException("Course not found."));
+        return courseRepository.findCourseByName(name).orElseThrow(() -> new EntityNotFoundException("Course not found."));
     }
 
     @Override
+    @Transactional
     public void deleteByName(String name) {
+        if (courseRepository.findCourseByName(name).isEmpty()) {
+            throw new EntityNotFoundException("Course not found.");
+        }
         courseRepository.deleteByName(name);
     }
 
     @Override
     @Transactional
     public void delete(long id) {
+        if (!courseRepository.existsById(id)) {
+            throw new EntityNotFoundException("Course not found.");
+        }
         courseRepository.deleteById(id);
     }
 
     @Override
     public void delete(Course course) {
+        if (!courseRepository.existsById(course.getId())) {
+            throw new EntityNotFoundException("Course not found.");
+        }
         courseRepository.delete(course);
     }
 
     @Override
     @Transactional
     public void update(Course course) {
-        courseRepository.save(course);
+        if (courseRepository.existsById(course.getId())) {
+            courseRepository.save(course);
+        }
+        throw new EntityNotFoundException("Course not found.");
     }
 }

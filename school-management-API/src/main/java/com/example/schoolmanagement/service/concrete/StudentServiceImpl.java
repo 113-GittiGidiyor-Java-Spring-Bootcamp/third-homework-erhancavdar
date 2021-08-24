@@ -2,6 +2,8 @@ package com.example.schoolmanagement.service.concrete;
 
 import com.example.schoolmanagement.entity.GenderStatistics;
 import com.example.schoolmanagement.entity.Student;
+import com.example.schoolmanagement.exceptions.EntityAlreadyExists;
+import com.example.schoolmanagement.exceptions.EntityNotFoundException;
 import com.example.schoolmanagement.repository.StudentRepository;
 import com.example.schoolmanagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,22 +38,32 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional
     public Student save(Student student) {
+        if (studentRepository.existsById(student.getId())) {
+            throw new EntityAlreadyExists("Student already exists.");
+        }
         return studentRepository.save(student);
     }
 
     @Override
     public Student findByName(String name) {
-        return studentRepository.findStudentByName(name).orElseThrow(() -> new IllegalArgumentException("User not found."));
+        return studentRepository.findStudentByName(name).orElseThrow(() -> new EntityNotFoundException("User not found."));
     }
 
     @Override
+    @Transactional
     public void deleteByName(String name) {
+        if (studentRepository.findStudentByName(name).isEmpty()) {
+            throw new EntityNotFoundException("Student not found.");
+        }
         studentRepository.deleteByName(name);
     }
 
     @Override
     @Transactional
     public void delete(long id) {
+        if (!studentRepository.existsById(id)) {
+            throw new EntityNotFoundException("Student not found.");
+        }
         studentRepository.deleteById(id);
     }
 
@@ -63,6 +75,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional
     public void update(Student student) {
+        if (studentRepository.existsById(student.getId())) {
+            throw new EntityNotFoundException("Student not found.");
+        }
+
         studentRepository.save(student);
     }
 
