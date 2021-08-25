@@ -1,17 +1,19 @@
 package com.example.schoolmanagement.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,5 +28,20 @@ public class Student {
     private Gender gender;
     @ManyToMany(mappedBy = "students")
     @JsonIgnore
+    @ToString.Exclude
     private Set<Course> courses;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Student student = (Student) o;
+
+        return Objects.equals(id, student.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1128121276;
+    }
 }
