@@ -12,8 +12,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@ToString
-@RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,9 +24,7 @@ public class Student {
     private LocalDate birthday;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @ManyToMany(mappedBy = "students")
-    @JsonIgnore
-    @ToString.Exclude
+    @ManyToMany(mappedBy = "students", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Set<Course> courses;
 
     @Override
@@ -43,5 +39,21 @@ public class Student {
     @Override
     public int hashCode() {
         return 1128121276;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", birthday=" + birthday +
+                ", gender=" + gender +
+                ", courses=" + courses +
+                '}';
+    }
+    public void addCourses(Course course){
+        courses.add(course);
+        course.getStudents().add(this);
     }
 }

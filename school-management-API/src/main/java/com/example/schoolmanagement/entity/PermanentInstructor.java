@@ -11,7 +11,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @SuperBuilder
 @NoArgsConstructor
 public class PermanentInstructor extends Instructor {
@@ -29,5 +28,12 @@ public class PermanentInstructor extends Instructor {
     @Override
     public int hashCode() {
         return 588071453;
+    }
+
+    @Override
+    public String toString() {
+        return "PermanentInstructor{" +
+                "fixedSalary=" + fixedSalary +
+                '}';
     }
 }
